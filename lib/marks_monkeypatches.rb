@@ -1,0 +1,6 @@
+require 'array/array'
+require 'date/date'
+require 'enumerable/enumerable'
+require 'kernel/kernel'
+require 'object/object'
+require 'struct/struct'

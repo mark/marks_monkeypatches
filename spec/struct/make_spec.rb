@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StructMake do
+describe Struct do
 
   MyStructMake = Struct.new(:foo, :bar)
 

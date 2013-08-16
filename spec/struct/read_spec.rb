@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe StructParse do
+describe Struct do
 
   MyStructRead = Struct.new(:first, :second, :third)
 
@@ -22,7 +22,7 @@ describe StructParse do
 
     subject { MyStructRead.parse('spec/struct/sample.csv', skip_header: true) }
 
-    it "should return 3 elements" do
+    it "should return 2 elements" do
       subject.length.must_equal 2
     end
 

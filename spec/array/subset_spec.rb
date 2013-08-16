@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ArraySubset do
+describe Array do
 
   describe :rest do
 

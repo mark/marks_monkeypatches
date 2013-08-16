@@ -1,8 +1,7 @@
-require 'array/transform'
+require 'array/transformer'
 
 class ::Array
 
-  include ArrayTransform
   ####################
   #                  #
   # Instance Methods #
@@ -23,4 +22,12 @@ class ::Array
     end
   end
 
+  def transform(new_array)
+    delta = Array::Transformer.new(self, new_array)
+    
+    yield(delta)
+    
+    self
+  end
+  
 end

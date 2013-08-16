@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ArrayTransform do
+describe Array::Transformer do
 
   it "should be defined on array" do
     Array.instance_methods.must_include :transform

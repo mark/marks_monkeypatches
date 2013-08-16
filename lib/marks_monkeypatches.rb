@@ -1,6 +1,7 @@
 require 'array/array'
 require 'date/date'
 require 'enumerable/enumerable'
+require 'hash/hash'
 require 'kernel/kernel'
 require 'object/object'
 require 'struct/struct'

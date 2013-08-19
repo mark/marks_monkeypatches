@@ -57,4 +57,20 @@ describe Hash do
 
   end
 
+  describe :resolve do
+
+    let(:old_hash) { { a: 1, b: 2, c: 3 } }
+    let(:new_hash) { { b: 2, c: 4, d: 5 } }
+
+    it "should be the same as merge when always using the new value" do
+      old_hash.resolve(new_hash) { |k, oldv, newv| newv }.must_equal old_hash.merge(new_hash)
+    end
+
+    it "should be the same as reversed merge when always using the old value" do
+      old_hash.resolve(new_hash) { |k, oldv, newv| oldv }.must_equal new_hash.merge(old_hash)
+    end
+
+  end
+
+
 end

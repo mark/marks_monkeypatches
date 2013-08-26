@@ -28,31 +28,37 @@ class ::Hash
   #                  #
   ####################
   
-  def except(key_or_keys)
-    keys = Array(key_or_keys)
+  def except(*keys)
+    keys = keys.flatten
 
     reject { |key, value| keys.include?(key) }
   end
-  
-  def only(key_or_keys)
-    keys = Array(key_or_keys)
+
+  def extract(*keys)
+    keys = keys.flatten
+
+    Hash.new.tap do |hash|
+      keys.each { |k| hash[k] = delete(k) if has_key?(k) }
+    end
+  end
+
+  def only(*keys)
+    keys = keys.flatten
 
     select { |key, value| keys.include?(key) }
   end
 
-  def resolve(new_hash)
-    Hash.new.tap do |result_hash|
-      each do |key, value|
-        result_hash[key] = \
-          if new_hash.has_key?(key) && new_hash[key] != value
-            yield key, value, new_hash[key]
+  def resolve(other)
+    Hash.new.tap do |result|
+      (self.keys | other.keys).each do |key|
+        result[key] = \
+          if self.has_key?(key) && other.has_key?(key) && self[key] != other[key]
+            yield key, self[key], other[key]
+          elsif self.has_key?(key)
+            self[key]
           else
-            value
+            other[key]
           end
-      end
-
-      (new_hash.keys - keys).each do |new_key|
-        result_hash[new_key] = new_hash[new_key]
       end
     end
   end

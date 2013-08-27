@@ -15,4 +15,8 @@ module ::Kernel
   def November (day, year); Date.new(year, 11, day); end
   def December (day, year); Date.new(year, 12, day); end
 
+  def duck(*methods)
+    Duck.new(methods)
+  end
+
 end

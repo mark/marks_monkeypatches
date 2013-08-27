@@ -4,6 +4,14 @@ class ::Object
     self.class.new(*args, &block)
   end
 
+  def duck?(*methods)
+    Duck.new(methods).quack?(self)
+  end
+
+  def falsy
+    self || yield
+  end
+  
   def in?(container)
     if container.respond_to? :cover?
       container.cover?(self)
@@ -13,4 +21,21 @@ class ::Object
       raise ArgumentError, "#{ container } does not respond to #cover? or #include?"
     end
   end
+
+  def present?
+    ! nil?
+  end
+
+  def required!
+    nil? ? yield : self
+  end
+
+  def to_b
+    !! self
+  end
+
+  def truthy
+    self && yield
+  end
+
 end

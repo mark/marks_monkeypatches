@@ -7,5 +7,15 @@ require 'date/cal'
 class ::Date
   include DateRelative
   include DateRange::DateHelpers
-  include CalPrinter::DateHelpers
+
+  ####################
+  #                  #
+  # Instance Methods #
+  #                  #
+  ####################
+  
+  def cal
+    CalPrinter.print(self)
+  end
+
 end

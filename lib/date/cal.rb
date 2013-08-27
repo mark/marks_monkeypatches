@@ -16,20 +16,6 @@ class CalPrinter
 
   LINE_WIDTH        = 20
   
-  ###########
-  #         #
-  # Modules #
-  #         #
-  ###########
-  
-  module DateHelpers
-
-    def cal
-      puts CalPrinter.new(self).to_a
-    end
-
-  end
-
   ###############
   #             #
   # Constructor #
@@ -38,6 +24,16 @@ class CalPrinter
   
   def initialize(root_day)
     @root_day = root_day
+  end
+
+  #################
+  #               #
+  # Class Methods #
+  #               #
+  #################
+  
+  def self.print(root_day)
+    puts new(root_day).to_a
   end
 
   ####################

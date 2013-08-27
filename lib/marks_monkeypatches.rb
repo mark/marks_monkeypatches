@@ -1,4 +1,5 @@
 require 'array/array'
+require 'comparable/comparable'
 require 'custom/duck'
 require 'date/date'
 require 'enumerable/enumerable'

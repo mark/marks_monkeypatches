@@ -1,6 +1,6 @@
 require 'array/array'
 require 'comparable/comparable'
-require 'custom/duck'
+require 'custom/custom'
 require 'date/date'
 require 'enumerable/enumerable'
 require 'hash/hash'

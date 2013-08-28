@@ -19,4 +19,8 @@ module ::Kernel
     Duck.new(methods)
   end
 
+  def t
+    ThreequalsArray.new
+  end
+
 end

@@ -19,6 +19,14 @@ module ::Kernel
     Duck.new(methods)
   end
 
+  def extract_options(array)
+    if array[-1].kind_of? Hash
+      return array[0...-1], array[-1]
+    else
+      return array, {}
+    end
+  end
+
   def t
     ThreequalsArray.new
   end

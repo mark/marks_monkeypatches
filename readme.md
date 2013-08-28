@@ -134,6 +134,14 @@ Merges self with other hash.  In the event that a key is defined in both hashes,
 
 Return a new duck type on the given keys.
 
+##### extract_options(args)
+
+Extracts a final options hash argument from the argument list passed in.  Returns a pair [ rest of arguments, options hash ].  Options hash is an empty hash if none was provided.
+
+##### t[*types]
+
+Returns a matcher which === matches elements of arrays in sequence.
+
 ### Object Methods
 
 ##### Object#another(*args, &block)
@@ -141,6 +149,8 @@ Return a new duck type on the given keys.
 Will call `.new` on the object's class, passing in the arguments and block to the constructor.
 
 ##### Object#duck?(*methods)
+
+Returns true if self responds to all of the given methods.
 
 ##### Object#falsy
 

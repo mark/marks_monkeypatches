@@ -1,5 +1,3 @@
-require 'array/transformer'
-
 class ::Array
 
   ####################

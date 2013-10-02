@@ -22,10 +22,6 @@ class ::Object
     end
   end
 
-  def m?
-    Option[self]
-  end
-
   def present?
     ! nil?
   end

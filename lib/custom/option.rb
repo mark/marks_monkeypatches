@@ -6,9 +6,7 @@ module Option
   #        #
   ##########
 
-  class NoneError           < StandardError; end
-
-  class UnprotectedGetError < StandardError; end
+  class NoDefaultError < StandardError; end
 
   ##################
   #                #
@@ -25,11 +23,13 @@ module Option
   end
 
   def self.all?(*args)
-    opts    = args.map { |obj| self[obj] }
     objects = []
-    opts.each do |opt|
-      return if opt.isnt?
-      opt.is? { |obj| objects << obj }
+
+    args.each do |arg|
+      opt = maybe(arg)
+
+      opt.is?   { |obj| objects << obj }
+      opt.isnt? { return }
     end
 
     yield(*objects)
@@ -47,33 +47,9 @@ module Option
       @__object__ = object
     end
 
-    def &(other)
-      other.is? do |obj|
-        return maybe([@__object__, obj])
-      end
-
-      None.instance
-    end
-
-    def fetch(default = nil)
+    def ensure(*args)
+      raise NoDefaultError unless args.length > 0 || block_given?
       @__object__
-    end
-
-    def get
-      if $__maybe__
-        @__object__
-      else
-        raise UnprotectedGetError
-      end
-    end
-
-    def guard(cond)
-      cond ? self : None.instance
-    end
-
-    def might(&block)
-      is?(&block)
-      self
     end
 
     def is?
@@ -82,6 +58,15 @@ module Option
     
     def isnt?(null_obj = nil)
       false
+    end
+
+    def tap_is?
+      yield(@__object__)
+      self
+    end
+
+    def tap_isnt?(null_obj = nil)
+      self
     end
 
     def try(meth = nil)
@@ -101,30 +86,14 @@ module Option
 
     include Singleton
 
-    def &(other)
-      self
-    end
-
-    def fetch(default = nil)
-      if default
-        default
-      elsif block_given?
+    def ensure(*args)
+      if block_given?
         yield
+      elsif args.any?
+        args[0]
       else
-        raise NoneError
+        raise NoDefaultError
       end
-    end
-
-    def get
-      if $__maybe__
-        throw :none_gotten
-      else
-        raise UnprotectedGetError
-      end
-    end
-
-    def guard(cond)
-      self
     end
 
     def is?
@@ -135,7 +104,12 @@ module Option
       block_given? ? yield( null_obj ) : true
     end
 
-    def might
+    def tap_is?
+      self
+    end
+
+    def tap_isnt?(null_obj = nil)
+      yield(null_obj)
       self
     end
 

@@ -27,6 +27,20 @@ module ::Kernel
     end
   end
 
+  def maybe(obj = nil)
+    option = Option[obj]
+    return option unless block_given?
+
+    old_maybe, $__maybe__ = $__maybe__, true
+    result = nil
+    catch(:none_gotten) do
+      result = yield(option)
+    end
+    result
+  ensure
+    $__maybe__ = old_maybe
+  end
+
   def t
     ThreequalsArray.new
   end

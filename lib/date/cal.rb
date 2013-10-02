@@ -1,4 +1,4 @@
-class CalPrinter
+  class CalPrinter
 
   ################
   #              #

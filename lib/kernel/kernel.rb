@@ -27,6 +27,10 @@ module ::Kernel
     end
   end
 
+  def goose(*methods)
+    Goose.new(methods)
+  end
+  
   def maybe(obj = nil)
     option = Option[obj]
     return option unless block_given?

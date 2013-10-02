@@ -47,7 +47,7 @@ module Option
       @__object__ = object
     end
 
-    def ensure(*args)
+    def fetch(*args)
       raise NoDefaultError unless args.length > 0 || block_given?
       @__object__
     end
@@ -86,7 +86,7 @@ module Option
 
     include Singleton
 
-    def ensure(*args)
+    def fetch(*args)
       if block_given?
         yield
       elsif args.any?

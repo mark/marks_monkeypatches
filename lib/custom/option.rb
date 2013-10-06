@@ -60,6 +60,14 @@ module Option
       false
     end
 
+    def safely(meth, *args)
+      if @__object__.respond_to? meth
+        @__object__.send(meth, *args)
+      else
+        None.instance
+      end
+    end
+
     def tap_is?
       yield(@__object__)
       self
@@ -102,6 +110,10 @@ module Option
     
     def isnt?(null_obj = nil)
       block_given? ? yield( null_obj ) : true
+    end
+
+    def safely(meth, *args)
+      self
     end
 
     def tap_is?

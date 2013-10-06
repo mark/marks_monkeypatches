@@ -1,3 +1,5 @@
+require 'delegate'
+
 class ::Object
 
   def another(*args, &block)
@@ -26,8 +28,20 @@ class ::Object
     ! nil?
   end
 
+  def mirror(other)
+    nil? ? GreyGoo : other
+  end
+
   def required!
     nil? ? yield : self
+  end
+
+  def this
+    @this ||= SimpleDelegator.new(self)
+  end
+
+  def this_for(obj)
+    obj.nil? ? GreyGoo : self
   end
 
   def to_b

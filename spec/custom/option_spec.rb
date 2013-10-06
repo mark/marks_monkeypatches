@@ -71,11 +71,7 @@ describe Option do
     let(:none) { maybe(nil) }
 
     def all_test(first, second, expected)
-      result = Option.all?(first, second) do |x, y|
-        x + y
-      end
-
-      result.must_equal expected
+      Option.all?(first, second) { |x, y| x + y }.must_equal expected
     end
 
     it "should work with Somes" do

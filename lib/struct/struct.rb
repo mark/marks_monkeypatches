@@ -1,4 +1,5 @@
 require 'csv'
+require 'struct/option_struct'
 
 class ::Struct
 
